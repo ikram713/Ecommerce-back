@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const itemRoutes = require('./routes/itemRoutes');
+const searchRoutes = require('./routes/searchRoutes');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -23,6 +24,7 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve image files
 app.use('/api/items', itemRoutes); // All item routes
+app.use('/search', searchRoutes);
 
 app.listen(5000, '0.0.0.0', () => {
   console.log('Server running on http://0.0.0.0:5000');
