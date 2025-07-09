@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const path = require('path');
 const itemRoutes = require('./routes/itemRoutes');
 const cors = require('cors');
+require('dotenv').config();
+
 
 
 const app = express();
@@ -11,9 +13,11 @@ app.use(cors());
 
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/ecommerceDB', {
-}).then(() => console.log("MongoDB connected"))
-  .catch(err => console.error(err));
+mongoose.connect(process.env.MONGO_URI, {
+})
+.then(() => console.log("MongoDB connected"))
+.catch(err => console.error(err));
+
 
 // Middleware
 app.use(express.json());
