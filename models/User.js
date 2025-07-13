@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-}, { timestamps: true });
+    likedProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Item' }]
+    },
+    
+    { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);
