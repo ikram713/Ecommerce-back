@@ -1,10 +1,10 @@
 const User = require('../models/User');
 const Item = require('../models/Item');
 
+// Like or Unlike Product
 exports.likeProduct = async (req, res) => {
-    try {
-    const userId = req.user.userId;
-    const { productId } = req.body;
+  try {
+    const { userId, productId } = req.body;
 
     const user = await User.findById(userId);
     if (!user) return res.status(404).json({ msg: 'User not found' });
@@ -23,16 +23,15 @@ exports.likeProduct = async (req, res) => {
     await user.save();
     res.json({ likedProducts: user.likedProducts, liked: !alreadyLiked });
 
-    } catch (err) {
+  } catch (err) {
     res.status(500).json({ error: err.message });
-    }
+  }
 };
 
-
-// Additional function to get liked products
+// Get User's Liked Products
 exports.getUserLikes = async (req, res) => {
   try {
-    const userId = req.user.userId;
+    const { userId } = req.body;
 
     const user = await User.findById(userId).populate('likedProducts');
     if (!user) return res.status(404).json({ message: 'User not found' });

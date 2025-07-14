@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { likeProduct, getUserLikes } = require('../controllers/likeController');
-const auth = require('../middleware/authMiddleware'); // assuming you have this
 
-router.post('/like', auth, likeProduct);
-router.get('/like', auth, getUserLikes);
-
-// 
+// No auth middleware needed
+router.post('/like', likeProduct);
+router.post('/get-likes', getUserLikes); // changed to POST since we're using req.body
 
 module.exports = router;
+
